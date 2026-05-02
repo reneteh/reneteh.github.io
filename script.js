@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (headerContainer) {
         // 1. Fetch Navbar from root
-        fetch("/navbar.html") 
+        fetch("./navbar.html") 
             .then(response => response.text())
             .then(data => {
                 headerContainer.innerHTML = data;
