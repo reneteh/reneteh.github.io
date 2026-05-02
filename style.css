@@ -1,0 +1,540 @@
+/* ---------------------------------------------------------
+   1. FONTS & VARIABLES
+--------------------------------------------------------- */
+@font-face {
+    font-family: 'Sequel Sans';
+    src: url('fonts/SequelSans-Body.woff2') format('woff2');
+    font-weight: 400;
+}
+
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --grey-light: #e0e0e0;
+    --grey-medium: #999999;
+    --grey-text: #666666;
+    --grey-dark: #444444;
+
+    /* UPDATE THESE TO MATCH ADOBE FAMILY NAMES */
+    /* Degular's Adobe family name is usually "degular-display" */
+    --font-header: "degular-display", sans-serif; 
+    --font-body: 'Sequel Sans', sans-serif;
+
+    --transition-smooth: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-hover: 0.3s ease-out;
+}
+
+/* ---------------------------------------------------------
+   2. GLOBAL STRUCTURE & SYMMETRY
+--------------------------------------------------------- */
+html {
+    overflow-y: overlay;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--white);
+    color: var(--black);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.3;
+    padding: 1.5rem 2.5rem 2.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+body.homepage {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+body:not(.homepage) {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* ---------------------------------------------------------
+   3. HEADER & NAVIGATION (Active Page Logic)
+--------------------------------------------------------- */
+#navbar-sticky {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.intro-text {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    max-width: 850px;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.logo,
+.nav-link {
+    font-family: var(--font-header);
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    text-decoration: none;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+    color: var(--grey-medium);
+    transition: color var(--transition-hover);
+}
+
+.nav-link {
+    margin-left: 1.5rem;
+}
+
+/* Interaction States */
+.logo:hover,
+.nav-link:hover {
+    color: var(--black) !important;
+}
+
+#page-index .logo {
+    color: var(--black) !important;
+}
+
+/* JS-injected classes for current page */
+.nav-link.active-nav {
+    color: var(--black) !important;
+}
+
+.logo.inactive-logo {
+    color: var(--grey-medium) !important;
+}
+
+/* ---------------------------------------------------------
+   4. GENERAL CONTENT WRAPPER
+--------------------------------------------------------- */
+#content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------------------------------------------------------
+   5. INDEX HERO
+--------------------------------------------------------- */
+.hero-container {
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: var(--grey-light);
+    filter: grayscale(100%);
+    display: block;
+}
+
+/* ---------------------------------------------------------
+   6. ABOUT PAGE LAYOUT
+--------------------------------------------------------- */
+.about-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+    flex: 1;
+    min-height: 0;
+}
+
+.profile-img-container {
+    width: 100%;
+    height: 100%;
+    max-height: 62vh;
+    background-color: var(--grey-light);
+    overflow: hidden;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+}
+
+.info-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-self: end;
+    padding-bottom: 1rem;
+}
+
+.info-item {
+    margin-bottom: 1.5rem;
+}
+
+.info-item p .role {
+    color: var(--grey-dark);
+    display: block;
+    margin-top: 2px;
+}
+
+.info-item .date {
+    font-size: 0.9rem;
+    color: var(--grey-text);
+}
+
+.contact-footer {
+    display: flex;
+    gap: 4rem;
+    padding-top: 1rem;
+    margin-top: auto;
+    width: 100%;
+}
+
+
+.contact-group a {
+    text-decoration: none;
+    color: var(--black);
+    display: flex;
+    align-items: center; /* Centers icon with text */
+    gap: 12px;           /* Space between icon and text */
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: opacity 0.3s ease;
+}
+
+.contact-group a:hover {
+    opacity: 0.5;
+}
+
+.footer-icon {
+    width: 20px;
+    height: 20px;
+    /* stroke-width is controlled directly in the SVG HTML for precision */
+    flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------
+   7. WORK GRID (Page 3) - Fluid Image Sizes
+--------------------------------------------------------- */
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    /* Aligns items to the top so different heights don't stretch boxes */
+    align-items: start;
+}
+
+.project-card {
+    text-decoration: none;
+    color: var(--black);
+    display: block;
+}
+
+.project-box {
+    position: relative;
+    width: 100%;
+    /* REMOVED aspect-ratio: 1/1 to allow natural image height */
+    background-color: var(--grey-light);
+    /* border: 1px solid var(--black); */
+    overflow: hidden;
+    line-height: 0;
+    /* Removes tiny gap at bottom of images */
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    /* Adapt to image's natural height */
+    display: block;
+
+    /* INTERACTION LOGIC */
+    filter: grayscale(100%);
+    transition: filter 0.4s ease-out;
+}
+
+.project-card:hover .project-image {
+    filter: grayscale(0%);
+}
+
+/* Labels & Tags (Now pinned to natural image corners) */
+.project-label {
+    font-family: "degular-display", sans-serif !important;
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1;
+    /* Reset line height for text */
+    pointer-events: none;
+}
+
+.tag-row {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    line-height: 1;
+    /* Reset line height for pills */
+}
+
+.pill {
+    font-family: "degular-display", sans-serif !important;
+    font-size: 0.75rem;
+    padding: 0.4rem 1.2rem;
+    border: 1px solid var(--black);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Slight backing for legibility */
+    backdrop-filter: blur(5px);
+    /* Optional: glass effect over image */
+    text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------
+   PROJECT PAGE SPECIFIC LAYOUTS
+--------------------------------------------------------- */
+
+#page-project .logo {
+    color: var(--grey-medium) !important;
+}
+
+#page-project .project-img {
+    filter: grayscale(0%) !important; /* Forces original color */
+}
+
+#page-project .project-img:hover {
+    filter: grayscale(0%) !important; 
+    cursor: default; /* Optional: removes the pointer finger */
+}
+
+.project-header {
+    margin-bottom: 3rem;
+}
+
+.project-title {
+    font-family: var(--font-header);
+    font-size: clamp(3rem, 8vw, 5rem);
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    margin-bottom: 0.5rem;
+    font-weight: 400; /* This removes the bold effect */
+}
+
+.project-description.pill {
+    display: inline-block;      /* Shrinks the box to fit the text */
+    font-size: 0.75rem;
+    padding: 0.5rem 1.2rem;     /* Vertical and Horizontal padding */
+    border: 1px solid var(--black);
+    border-radius: 30px;        /* Creates the rounded pill ends */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 1.5rem;         /* Space between the Title and the Pill */
+    color: var(--black);
+    line-height: 1;
+}
+
+/* Gallery Container */
+.project-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Spacing between rows */
+    width: 100%;
+    padding-bottom: 1rem;
+}
+
+.gallery-row {
+    display: grid;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.project-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* border: 1px solid var(--black); */
+    filter: grayscale(100%);
+    transition: filter 0.6s ease;
+}
+
+.project-img:hover {
+    filter: grayscale(0%);
+}
+
+.caption {
+    font-size: 0.8rem;
+    color: var(--black);
+    line-height: 1.4;
+    max-width: none;
+}
+
+/* ROW TYPES BASED ON PDF */
+
+/* 1/3 Empty Left, 2/3 Image Right */
+.row-split-right {
+    grid-template-columns: 1fr 2fr;
+}
+
+/* Equal 3 columns */
+.row-3-col {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* 2/3 Image Left, 1/3 Caption Right */
+.row-2-col {
+    grid-template-columns: 2fr 1fr;
+}
+
+/* Asymmetric: Vertical vs Horizontal */
+.row-split-asym {
+    grid-template-columns: 1fr 2fr;
+    align-items: stretch; /* Change from start to stretch */
+}
+
+.row-split-asym .gallery-item {
+    display: flex;
+}
+
+.row-split-asym .project-img {
+    height: 100%;      /* Forces image to fill the grid height */
+    object-fit: cover; /* Ensures the landscape image fills the height without stretching */
+}
+
+.gallery-item.tall img {
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+/* Full Width (1 Column) */
+.row-full-width {
+    grid-template-columns: 1fr;
+}
+
+/* Temporary styles for a placeholder box if image is missing */
+.row-full-width .gallery-item {
+    background-color: var(--grey-light);
+    width: 100%;
+    min-height: 500px; /* Adjust height as needed */
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+@media (max-width: 768px) {
+    .gallery-row {
+        grid-template-columns: 1fr !important;
+        /* Stack everything on mobile */
+    }
+
+    .empty-space {
+        display: none;
+    }
+}
+
+/* ---------------------------------------------------------
+   8. ANIMATIONS & RESPONSIVE
+--------------------------------------------------------- */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+    .work-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    body,
+    body.homepage {
+        padding: 1.5rem;
+        overflow-y: auto;
+        height: auto;
+    }
+
+    .header-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-link {
+        margin-left: 0;
+        margin-right: 1.5rem;
+    }
+
+    .work-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-footer {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+
+
+/* ---------------------------------------------------------
+   9. LINK PILL STYLING
+--------------------------------------------------------- */
+
+.link-pill {
+    display: inline-block;
+    text-decoration: none;
+    font-family: var(--font-header); /* Matches your other pills */
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--black);
+    
+    /* The "Outline" state */
+    padding: 0.4rem 1.2rem;
+    border: 1px solid var(--black);
+    border-radius: 30px;
+    background-color: transparent;
+    
+    /* Smooth transition for the hover effect */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-left: 5px; /* Adds space between text and pill */
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/* The "Hover" state */
+.link-pill:hover {
+    background-color: var(--black);
+    color: var(--white) !important; /* Forces text to white */
+}
