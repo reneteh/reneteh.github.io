@@ -80,3 +80,36 @@ const observer = new IntersectionObserver((entries) => {
 
 // Initialize observer on all elements with 'reveal' class
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+
+
+// Function to initialize Lenis
+function initSmoothScrolling() {
+    // Check if Lenis is actually loaded before trying to use it
+    if (typeof Lenis === 'undefined') {
+        console.warn("Lenis library not found. Smooth scrolling disabled.");
+        return;
+    }
+
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    lenis.on('scroll', (e) => {
+        // This will now only log if Lenis is successfully running
+        console.log('Lenis is active!');
+    });
+}
+
+// Start Lenis
+initSmoothScrolling();
