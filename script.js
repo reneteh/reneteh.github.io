@@ -1,96 +1,76 @@
 /**
- * Bouncyhoops Universal Script
- * Handles Navbar Injection, Page Highlighting, and Scroll Animations
+ * Rene Teh Portfolio - Universal Script
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+    // 1. NAVBAR INJECTION
     const headerContainer = document.getElementById("navbar-sticky");
-
     if (headerContainer) {
-        // 1. FETCH NAVBAR
-        // Starting with '/' tells the browser to look at the root domain (reneteh.github.io)
         fetch("/navbar.html")
             .then(response => {
-                if (!response.ok) throw new Error("Navbar file not found");
+                if (!response.ok) throw new Error("Navbar not found");
                 return response.text();
             })
             .then(data => {
-                // 2. INJECT NAVBAR HTML
                 headerContainer.innerHTML = data;
-
-                // 3. IDENTIFY CURRENT PAGE
-                // This logic extracts just the filename (e.g., 'about.html')
-                const path = window.location.pathname;
-                const page = path.split("/").pop() || "index.html";
-                
-                const logo = document.querySelector(".logo");
-                const navLinks = document.querySelectorAll(".nav-link");
-
-                // 4. LOGO COLOR LOGIC
-                // The logo is black only on the index page, gray everywhere else
-                if (page === "index.html") {
-                    logo.classList.add("active-nav");
-                    logo.classList.remove("inactive-logo");
-                } else {
-                    logo.classList.add("inactive-logo");
-                    logo.classList.remove("active-nav");
-                }
-
-                // 5. NAV LINKS COLOR LOGIC
-                navLinks.forEach(link => {
-                    // Extract filename from href (e.g., '/work.html' -> 'work.html')
-                    const linkHref = link.getAttribute("href").split("/").pop();
-                    
-                    if (linkHref === page) {
-                        link.classList.add("active-nav");
-                    } else {
-                        link.classList.remove("active-nav");
-                    }
-                });
-
-                // 6. TRIGGER REVEAL ANIMATIONS
-                // Small timeout to ensure the injected HTML has rendered
-                setTimeout(() => {
-                    document.querySelectorAll('.reveal').forEach(el => {
-                        el.classList.add('active');
-                    });
-                }, 100);
+                highlightCurrentPage();
+                initScrollReveal();
             })
-            .catch(error => {
-                console.error("Error loading navigation:", error);
-            });
+            .catch(err => console.error("Navbar error:", err));
+    } else {
+        initScrollReveal();
     }
+
+    // 2. SMOOTH SCROLLING (LENIS)
+    initLenis();
+
+    // 3. START THE AURA FOLLOW (This was missing!)
+    initCursorAura();
 });
 
-/**
- * SCROLL OBSERVER
- * Handles fade-in animations for scrollable pages (Work, Projects)
- */
-const observerOptions = {
-    threshold: 0.1
-};
+// Function to highlight active nav links
+function highlightCurrentPage() {
+    const path = window.location.pathname;
+    const page = path.split("/").pop() || "index.html";
+    const logo = document.querySelector(".logo");
+    const navLinks = document.querySelectorAll(".nav-link");
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
+    if (logo) {
+        if (page === "index.html") {
+            logo.classList.add("active-nav");
+        } else {
+            logo.classList.add("inactive-logo");
         }
-    });
-}, observerOptions);
-
-// Initialize observer on all elements with 'reveal' class
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-
-
-
-// Function to initialize Lenis
-function initSmoothScrolling() {
-    // Check if Lenis is actually loaded before trying to use it
-    if (typeof Lenis === 'undefined') {
-        console.warn("Lenis library not found. Smooth scrolling disabled.");
-        return;
     }
+
+    navLinks.forEach(link => {
+        const linkHref = link.getAttribute("href").split("/").pop();
+        if (linkHref === page) link.classList.add("active-nav");
+    });
+}
+
+// Function for Scroll Reveal
+function initScrollReveal() {
+    const observerOptions = {
+        threshold: 0.1, 
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach(el => observer.observe(el));
+}
+
+// Function for Lenis
+function initLenis() {
+    if (typeof Lenis === 'undefined') return;
 
     const lenis = new Lenis({
         duration: 1.2,
@@ -102,14 +82,44 @@ function initSmoothScrolling() {
         lenis.raf(time);
         requestAnimationFrame(raf);
     }
-
     requestAnimationFrame(raf);
-
-    lenis.on('scroll', (e) => {
-        // This will now only log if Lenis is successfully running
-        console.log('Lenis is active!');
-    });
 }
 
-// Start Lenis
-initSmoothScrolling();
+// Function for Cursor Aura
+function initCursorAura() {
+    const aura = document.getElementById('cursor-aura');
+    if (!aura) return;
+
+// Inside initCursorAura function:
+
+const randomHue = Math.floor(Math.random() * 360);
+
+/* 
+   ADJUST THESE THREE NUMBERS TO YOUR LIKING:
+   70% = Saturation (Higher is more colorful/vivid)
+   60% = Lightness (Lower is darker/richer, higher is paler/brighter)
+   0.5 = Opacity (1.0 is solid, 0.1 is nearly invisible)
+*/
+const randomColor = `hsla(${randomHue}, 70%, 60%, 0.5)`;
+
+aura.style.setProperty('--aura-color', randomColor);
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let auraX = mouseX;
+    let auraY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function animate() {
+        auraX += (mouseX - auraX) * 0.08;
+        auraY += (mouseY - auraY) * 0.08;
+        aura.style.transform = `translate(${auraX}px, ${auraY}px) translate(-50%, -50%)`;
+        requestAnimationFrame(animate);
+    }
+    animate();
+    
+}

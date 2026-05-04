@@ -311,6 +311,7 @@ body:not(.homepage) {
 .project-card {
     text-decoration: none;
     color: var(--black);
+    position: relative;
     display: block;
 }
 
@@ -343,9 +344,10 @@ body:not(.homepage) {
 /* Labels & Tags (Now pinned to natural image corners) */
 .project-label {
     font-family: "degular-display", sans-serif !important;
-    position: absolute;
+    position: absolute !important;
     top: 1.5rem;
     left: 1.5rem;
+    margin: 0; /* Clear any default margins */
     font-size: 2rem;
     font-weight: 400;
     line-height: 1;
@@ -629,4 +631,124 @@ html.lenis, html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   11. SCROLL REVEAL ANIMATION
+--------------------------------------------------------- */
+/* The hidden state */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* STAGGERED REVEAL: 
+   This makes the 3 columns in your Work Grid pop up 1-2-3 
+   instead of all at the exact same time. */
+.work-grid .project-card.reveal:nth-child(3n+1) { transition-delay: 0.1s; }
+.work-grid .project-card.reveal:nth-child(3n+2) { transition-delay: 0.2s; }
+.work-grid .project-card.reveal:nth-child(3n+3) { transition-delay: 0.3s; }
+
+
+
+
+/* --- 1. THE AURA (High Visibility Version) --- */
+#cursor-aura {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 500px;
+    height: 500px;
+    /* Changed to a darker grey (0,0,0,0.07) so it's visible on white */
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1; /* Behind everything */
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    filter: blur(30px);
+}
+
+/* --- 2. LAYERING LOGIC --- */
+
+/* The Background */
+html, body {
+    background-color: var(--white);
+    /* This ensures the aura isn't hidden by the body background */
+}
+
+/* The Content Containers (Must be transparent to see aura through gaps) */
+#content, .work-grid, .about-main-grid, .project-gallery {
+    position: relative;
+    z-index: 2;
+    background: transparent !important;
+}
+
+/* The Project Cards (White background to hide the aura behind them) */
+.project-box, .hero-container, .profile-img-container, .gallery-item {
+    position: relative;
+    z-index: 3;
+    background-color: var(--white) !important;
+}
+
+/* The Text (Z-index 10 to stay on top, but keep their original positioning) */
+.intro-text, .header-main, .caption, .info-item, .logo, .nav-link {
+    position: relative;
+    z-index: 10;
+}
+
+/* FIX: Ensure Labels stay in their corners and don't move content */
+.project-label {
+    position: absolute !important; /* Keep it absolute! */
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.tag-row {
+    position: absolute !important;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 10;
+}
+
+#navbar-sticky {
+    z-index: 1000 !important;
+}
+
+/* ADD THIS AT THE VERY BOTTOM OF STYLE.CSS */
+#cursor-aura {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    /* Changed from 500px to 300px */
+    width: 300px; 
+    height: 300px;
+    /* We keep the rest the same */
+    background: radial-gradient(circle, var(--aura-color) 0%, rgba(0, 0, 0, 0) 70%) !important;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    filter: blur(20px);
+    display: block !important;
+}
+
+/* Ensure the body doesn't hide it */
+body {
+    background-color: transparent !important;
+}
+
+html {
+    background-color: white;
 }
