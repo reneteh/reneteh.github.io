@@ -3,6 +3,12 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+    // At the top of your DOMContentLoaded block:
+const hero = document.querySelector('.hero-container');
+if (hero) {
+    // Add a tiny delay so it fades in beautifully
+    setTimeout(() => hero.classList.add('active'), 500);
+}
     // 1. NAVBAR INJECTION
     const headerContainer = document.getElementById("navbar-sticky");
     if (headerContainer) {

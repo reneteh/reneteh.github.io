@@ -752,3 +752,60 @@ body {
 html {
     background-color: white;
 }
+
+/* ---------------------------------------------------------
+   12. HOVER POP & SMOOTH FLOAT
+--------------------------------------------------------- */
+
+/* LAYER 1: The Ambient Float (Applied to the Link Card) */
+@keyframes ambientFloat {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+.project-card.reveal.active {
+    /* We float the outer card very slowly */
+    animation: ambientFloat 12s ease-in-out infinite;
+    display: block;
+    text-decoration: none;
+}
+
+/* LAYER 2: The Hover Expansion (Applied to the Inner Box) */
+.project-box {
+    /* 1.2 seconds with a custom 'Quintic' curve for a luxury feel */
+    transition: 
+        transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), 
+        box-shadow 1.2s cubic-bezier(0.23, 1, 0.32, 1),
+        filter 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+    
+    background-color: var(--white);
+    position: relative;
+    z-index: 5;
+    will-change: transform, box-shadow;
+    /* Soft base shadow */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* THE SMOOTH EXPANSION */
+.project-card:hover .project-box {
+    /* Scale 1.08 (more obvious) and Lift -15px */
+    transform: scale(1.08) translateY(-15px);
+    
+    /* Deep, elegant multi-layered shadow */
+    box-shadow: 
+        0 40px 80px rgba(0, 0, 0, 0.12), 
+        0 15px 25px rgba(0, 0, 0, 0.05);
+    
+    z-index: 100;
+}
+
+/* Optional: Make the image color-in slowly too */
+.project-image {
+    transition: filter 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+    filter: grayscale(100%);
+}
+
+.project-card:hover .project-image {
+    filter: grayscale(0%);
+}
