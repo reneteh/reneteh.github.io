@@ -28,7 +28,7 @@
    2. GLOBAL STRUCTURE & SYMMETRY
 --------------------------------------------------------- */
 html {
-    overflow-y: overlay;
+    scroll-behavior: auto; 
 }
 
 * {
@@ -43,30 +43,99 @@ body {
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     line-height: 1.3;
-    padding: 1.5rem 2.5rem 2.5rem 2.5rem;
-    display: flex;
-    flex-direction: column;
+    /* We keep the padding, but the navbar will use negative margins to span full width */
+    padding: 0 2.5rem 2.5rem 2.5rem; 
+    display: block; /* Changed from flex to block to help sticky behavior */
     min-height: 100vh;
     width: 100%;
 }
 
 body.homepage {
-    height: 100vh;
-    width: 100vw;
+    height: auto; 
+    width: 100%;
     overflow-x: hidden;
 }
 
 body:not(.homepage) {
-    overflow-y: auto;
     overflow-x: hidden;
+}
+
+/* --- 2. THE STICKY GLASS NAVBAR --- */
+#navbar-sticky {
+    position: -webkit-sticky; /* Support for Safari */
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: calc(100% + 5rem); /* Offsets the body padding (2.5rem + 2.5rem) */
+    margin-left: -2.5rem;      /* Pulls navbar to the very edge of the screen */
+    margin-right: -2.5rem;
+    padding: 1.5rem 2.5rem 0.5rem 2.5rem; /* Restores internal padding for content */
+    
+    z-index: 1000; /* Higher than content */
+    
+    /* The Glass Effect */
+    background-color: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    
+    /* Transition for a smooth color change if needed */
+    transition: background-color 0.3s ease;
+}
+
+/* Ensure images and content have a lower z-index so they slide UNDER the navbar */
+#content, .reveal, .project-gallery {
+    position: relative;
+    z-index: 1;
 }
 
 /* ---------------------------------------------------------
    3. HEADER & NAVIGATION (Active Page Logic)
 --------------------------------------------------------- */
+/* ---------------------------------------------------------
+   STICKY GLASS NAVBAR
+--------------------------------------------------------- */
+/* --- 2. THE STICKY GLASS NAVBAR --- */
 #navbar-sticky {
-    width: 100%;
-    flex-shrink: 0;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: calc(100% + 5rem);
+    margin-left: -2.5rem;
+    margin-right: -2.5rem;
+    
+    /* Increase padding-bottom to give the fade more room to breathe */
+    padding: 1.5rem 2.5rem 2rem 2.5rem; 
+    
+    z-index: 1000;
+
+    /* 1. The Glass Base */
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    /* 2. THE SECRET SAUCE: The Gradient Mask */
+    /* This tells the browser: "Make the top 60% solid, then fade to 0% at the bottom" */
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+
+    /* 3. Remove the border-bottom if you have one, as it creates a hard line */
+    border-bottom: none;
+
+    /* Stops the navbar from intercepting clicks on content in the "fade zone" */
+    pointer-events: none; 
+}
+
+/* 4. Allow clicks on the actual links inside the navbar */
+#navbar-sticky .header-top,
+#navbar-sticky .header-main {
+    pointer-events: auto;
+}
+
+/* Ensure images and content have a lower z-index so they slide UNDER the navbar */
+#content, .reveal, .project-gallery {
+    position: relative;
+    z-index: 1;
 }
 
 .intro-text {
