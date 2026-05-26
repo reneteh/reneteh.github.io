@@ -624,11 +624,6 @@ body:not(.homepage) {
         font-size: 0.85rem;
         margin-bottom: 0.5rem;
     }
-
-    #cursor-aura {
-        display: none !important;
-    }
-
 }
 
 /* Prevent text overlapping on About/Work pages */
@@ -899,23 +894,26 @@ html.lenis body {
 /* ---------------------------------------------------------
    13. AURA & OTHER FIXES
 --------------------------------------------------------- */
+/* ---------------------------------------------------------
+   13. AURA & OTHER FIXES
+--------------------------------------------------------- */
 #cursor-aura {
     position: fixed !important;
     top: 0;
     left: 0;
-    
-    /* Change these two values to adjust the size */
     width: 150px; 
     height: 150px;
-    
     background: radial-gradient(circle, var(--aura-color, rgba(0, 0, 0, 0.08)) 0%, rgba(0, 0, 0, 0) 70%) !important;
     border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999; 
+    pointer-events: none; /* Allows you to click links through the ball */
+    z-index: 9999;        /* Puts it on top of everything */
     transform: translate(-50%, -50%);
-    
-    /* Reduce the blur slightly if the ball is smaller (e.g., from 20px to 10px) */
-    filter: blur(10px); 
-    
-    display: block !important;
+    filter: blur(10px);
+}
+
+/* Hide it on mobile - Put this AFTER the block above */
+@media (max-width: 768px) {
+    #cursor-aura {
+        display: none !important;
+    }
 }
