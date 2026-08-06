@@ -970,7 +970,6 @@ body:not(.homepage) {
 .link-pill:hover {
     background-color: var(--black);
     color: var(--white) !important;
-    /* Forces text to white */
 }
 
 
