@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Order of Collective Good | Rene Teh</title>
+    <title>Monee Application Redesign | Rene Teh</title>
     <!-- Look up one folder for CSS -->
     <link rel="stylesheet" href="https://use.typekit.net/rvz1gfk.css">
     <link rel="stylesheet" href="../style.css">
@@ -13,40 +13,129 @@
 <body id="page-project">
     <!-- Shared Header (Injected via script.js) -->
     <div id="navbar-sticky"></div>
-        <div id="cursor-aura"></div>
+    <div id="cursor-aura"></div>
 
     <main id="content">
         <!-- Project Title & Subtitle -->
         <header class="project-header reveal">
-            <h1 class="project-title">Digital Wesley</h1>
+            <h1 class="project-title">Monee Application Redesign</h1>
             <!-- Added 'pill' class for styling -->
-            <p class="project-description pill">UIUX, HTML & CSS — 2023</p>
+            <p class="project-description pill">UIUX, HTML & CSS — 2026</p>
         </header>
+
+
 
         <!-- Project Gallery Grid -->
         <div class="project-gallery">
 
+            <!-- ADD THIS DECK CAROUSEL CONTAINER INSIDE YOUR project.html (e.g. inside .project-gallery) -->
 
-            <!-- Row 3: Three Column Grid -->
-            <div class="gallery-row row-3-col reveal">
-                <div class="gallery-item"><img src="../images/Digital Wesley/Digital Wesley Inspiration 1.jpg" class="project-img"
-                        alt=""></div>
-                <div class="gallery-item"><img src="../images/Digital Wesley/Digital Wesley Inspiration 2.jpg" class="project-img"
-                        alt=""></div>
-                <div class="gallery-item"><img src="../images/Digital Wesley/Digital Wesley Inspiration 3.jpg" class="project-img"
-                        alt=""></div>
+            <div class="deck-carousel-container" id="deckCarousel">
+                <!-- Top Bar: Counter & Swipe Hint -->
+                <div class="carousel-top-bar">
+
+                    <span class="slide-counter" id="slideCounter">01 / 07</span>
+                </div>
+
+                <!-- Main Deck Display Screen -->
+                <div class="carousel-viewport" id="carouselViewport">
+                    <!-- Slide Track -->
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide active">
+                            <img src="../images/Monee/Monee-research-1.png" alt="Deck Slide 1">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag">01</span>
+                                <h3>Overview</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="carousel-slide">
+                            <img src="../images/Monee/Monee-research-2.png" alt="Deck Slide 2">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag">02</span>
+                                <h3>Project Brief</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="carousel-slide">
+                            <img src="../images/Monee/Monee-research-3.png" alt="Deck Slide 3">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag">03</span>
+                                <h3>Problem Statement</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="carousel-slide">
+                            <img src="../images/Monee/Monee-research-4.png" alt="Deck Slide 3">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag">04</span>
+                                <h3>"How Might We" Statement</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 5 -->
+                        <div class="carousel-slide">
+                            <img src="../images/Monee/Monee-research-5.png" alt="Deck Slide 3">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag">05</span>
+                                <h3>Key Insights</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 6 -->
+                        <div class="carousel-slide">
+                            <img src="../images/Monee/Monee-research-6.png" alt="Deck Slide 3">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag">06</span>
+                                <h3>User Journey Map</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 7 -->
+                        <div class="carousel-slide">
+                            <img src="../images/Monee/Monee-research-7.png" alt="Deck Slide 3">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag">07</span>
+                                <h3>Product Strategy</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CIRCULAR GLASS SIDE BUTTONS (< and >) -->
+                    <button class="glass-arrow-btn prev-btn" id="prevSlideBtn" aria-label="Previous Slide">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <button class="glass-arrow-btn next-btn" id="nextSlideBtn" aria-label="Previous Slide">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
             </div>
+
+
 
             <!-- Row 1: Single Image (Pinned Right) -->
             <div class="gallery-row row-split-right reveal">
                 <div class="gallery-info">
                     <p class="caption">
-                        
+
                     </p>
                 </div>
                 <div class="gallery-item">
                     <p class="caption">
-                        This project began with the intention of reimagining Wesley Methodist Church’s digital presence as a platform that resonates more strongly with younger audiences. Rather than approaching it as a conventional church website, the direction shifted towards creating a more forward-looking and immersive identity, one that reflects openness, innovation, and community. Drawing from visual references such as cyberpunk interfaces, futuristic UI systems, and space-inspired compositions, the project explored how digital aesthetics could be used to reposition the church as a space that feels relevant, inclusive, and engaging in a contemporary context.
+                        Before exploring solutions, I wanted to understand why users weren't engaging with MariBank
+                        despite it being integrated within ShopeePay. Using AI-assisted research synthesis alongside
+                        manual product analysis, I reviewed user feedback, identified recurring pain points, and mapped
+                        the existing journey to uncover where attention, trust, and decision-making broke down. This
+                        ensured the redesign was grounded in real user behaviour rather than assumptions.
+                        <br><br>
+                        These insights were then translated into clear problem statements and product strategies that
+                        guided every design decision. By focusing on both the user experience and the business objective
+                        of increasing MariBank adoption, I established a framework for creating solutions that were
+                        intuitive, low-friction, and naturally integrated into the ShopeePay ecosystem.
                     </p>
                 </div>
             </div>
@@ -55,45 +144,93 @@
             <!-- Row 2: Large Image Left, Text Right -->
             <div class="gallery-row row-2-col reveal">
                 <div class="gallery-item large">
-                    <img src="../images/Digital Wesley/Digital Wesley Outcome.jpg" class="project-img" alt="">
+                    <img src="../images/Monee/Monee-friction.png" class="project-img" alt="">
                 </div>
                 <div class="gallery-info">
                     <p class="caption">
-                        The design process involved translating these inspirations into a cohesive visual system that balances clarity with expression. Elements such as grid-based layouts, glowing interface lines, layered information panels, and bold typographic hierarchies were explored to create a structured yet dynamic experience. Space-themed imagery and gradients were incorporated to evoke a sense of exploration and possibility, while maintaining usability through clear navigation and content organisation. Iterations focused on refining the balance between visual intensity and readability, ensuring that while the interface felt futuristic, it remained accessible and intuitive for users of varying familiarity with digital platforms.
-
-                        <br><br>  
-
-                        The final outcome presents Digital Wesley as a modern, visually immersive web platform that bridges faith and technology. By combining futuristic design language with purposeful user experience, the website becomes more than just an informational space, it acts as a digital extension of the church’s vision, inviting users to explore, connect, and participate. The integration of interactive elements and visually engaging layouts encourages deeper engagement, particularly among youths, while reinforcing the church’s commitment to evolving with the times. Ultimately, the project demonstrates how design can reshape perception, transforming a traditional institution into a progressive and welcoming digital environment.
-
-                        <br><br> 
-
-                        Check out the Digital Wesley's website  
-                         <a href="https://www.digital.wesleymc.org/" 
-                          target="_blank" class="link-pill">here</a>
+                        The first step was understanding why MariBank struggled to gain attention within the existing
+                        ShopeePay experience. Rather than relying on assumptions, I analysed the current homepage
+                        alongside real user feedback, identifying recurring patterns in how users navigated the
+                        interface and where friction emerged. I found that MariBank was competing against multiple
+                        financial products for the same visual space, making it difficult for users to recognise its
+                        value proposition or understand why they should open an account.
+                        <br><br>
+                        To make this process more efficient, I incorporated AI to synthesise large volumes of community
+                        feedback, organise recurring complaints into themes, and challenge my initial observations with
+                        alternative perspectives. This allowed me to spend less time sorting information manually and
+                        more time evaluating which problems were genuinely worth solving. The exercise reinforced that
+                        effective UX begins with understanding behaviour before proposing solutions, and that AI works
+                        best as a research companion rather than a decision maker.
                     </p>
                 </div>
             </div>
 
 
 
-            <!-- Row: Full Width Video with Manual Controls -->
-<div class="gallery-row row-full-width reveal">
-    <div class="gallery-item">
-        <video controls class="project-img">
-            <source src="../images/Digital Wesley/Digital Wesley website walkthrough.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-</div>
+            <!-- Row 1: Single Image (Pinned Right) -->
+            <div class="gallery-row row-split-right reveal">
+                <div class="gallery-info">
+                    <p class="caption">
+                        With the key friction points identified, I redesigned the homepage to improve MariBank
+                        discoverability without disrupting ShopeePay's core transactional experience. Instead of adding
+                        more promotional content, I focused on restructuring the information hierarchy, creating clearer
+                        distinctions between spending and saving, surfacing trust signals earlier, and reducing the
+                        cognitive effort required for users to understand the benefits of moving money into MariBank.
+                        <br><br>
+                        Throughout the exploration, AI became part of my ideation workflow. I used it to generate
+                        alternative layouts, question design assumptions, and rapidly compare different approaches
+                        before refining them manually in Figma. This iterative process taught me that strong product
+                        design is rarely about introducing more features; it's about presenting the right information at
+                        the right moment. AI accelerated exploration, but the design decisions were ultimately grounded
+                        in user behaviour and product strategy.
+                    </p>
+                </div>
+                <div class="gallery-item large">
+                    <img src="../images/Monee/Monee-redesign-1.png" class="project-img" alt="">
+                </div>
+            </div>
+
+
+
+            <!-- Row 1: Single Image (Pinned Right) -->
+            <div class="gallery-row row-split-right reveal">
+                <div class="gallery-info">
+                    <p class="caption">
+                        The landing page was redesigned to better support users once they expressed interest in
+                        MariBank. Instead of presenting isolated promotions and fragmented information, I restructured
+                        the experience into a clearer narrative that progressively builds trust, explains the product's
+                        value, reduces onboarding uncertainty, and encourages users towards account activation. Features
+                        such as earnings simulations, regulatory reassurance, transparent benefits, and guided
+                        onboarding were intentionally sequenced to match users' evolving decision-making process.
+                        <br><br>
+                        Alongside interface design, I also experimented with AI-assisted development through vibe
+                        coding, using AI to help prototype interactions in Visual Studio Code before publishing a
+                        functional prototype on GitHub. Combining research synthesis, product thinking, interface
+                        design, and rapid prototyping strengthened my confidence in working across the entire design
+                        process. More importantly, it reinforced that AI is most valuable when it expands a designer's
+                        ability to explore, iterate, and validate ideas, not when it replaces critical thinking or human
+                        judgement.
+                        <br><br><br>
+                        Check out the coded digital prototype
+                        <a href="https://reneteh.github.io/shopeepay-maribank-prototype/" target="_blank"
+                            class="link-pill">here</a>
+                    </p>
+                </div>
+                <div class="gallery-item large">
+                    <img src="../images/Monee/Monee-redesign-2.png" class="project-img" alt="">
+                </div>
+            </div>
+
+
 
         </div>
     </main>
 
-   <!-- 1. Lenis Library -->
+    <!-- 1. Lenis Library -->
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-    
+
     <!-- 2. Your script (Note the two dots .. ) -->
-    <script src="../script.js"></script> 
+    <script src="../script.js"></script>
 </body>
 
 </html>
